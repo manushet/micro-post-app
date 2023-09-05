@@ -1,0 +1,80 @@
+controllers:
+    resource:
+        path: ../src/Controller/
+        namespace: App\Controller
+    type: attribute
+posts:
+    path: /
+    controller: App\Controller\PostController::index
+    methods:    [GET]
+add_post:
+    path: /new-post
+    controller: App\Controller\PostController::addPost
+    methods:    [GET, POST]
+edit_post:    
+    path: /edit-post/{id}
+    controller: App\Controller\PostController::editPost
+    methods:    [GET, POST]
+remove_post:    
+    path: /remove-post/{id}
+    controller: App\Controller\PostController::removePost
+    methods:    [GET]
+post:
+    path: /post/{id}
+    controller: App\Controller\PostController::viewPost
+    methods:    [GET]
+user_posts:
+    path: /user/{username}
+    controller: App\Controller\PostController::userPosts
+    methods:    [GET]
+follow:
+    path: /follow/{id}
+    controller: App\Controller\FollowingController::follow
+    methods:    [GET]
+unfollow:
+    path: /unfollow/{id}
+    controller: App\Controller\FollowingController::unfollow
+    methods:    [GET]
+like:
+    path: /like/{id}
+    controller: App\Controller\LikesController::like
+    methods:    [GET]
+unlike:
+    path: /unlike/{id}
+    controller: App\Controller\LikesController::unlike
+    methods:    [GET]
+notification_unread:
+    path: /notification/unread-count
+    controller: App\Controller\NotificationController::unreadCount
+    methods:    [GET] 
+notification_mark:
+    path: /notification-mark/{id}
+    controller: App\Controller\NotificationController::markAsRead
+    methods:    [GET] 
+notification_mark_all:
+    path: /notification-mark-all
+    controller: App\Controller\NotificationController::markAllAsRead
+    methods:    [GET] 
+notification_view:
+    path: /notification/view
+    controller: App\Controller\NotificationController::notifications
+    methods:    [GET]
+login:
+    path: /login
+    controller: App\Controller\AuthController::login
+    methods:    [GET, POST]
+logout:
+    path: /logout
+    methods: [GET, POST]
+register:
+    path: /register
+    controller: App\Controller\AuthController::register
+    methods:    [GET, POST]
+confirm:
+    path: /confirm
+    controller: App\Controller\AuthController::confirm
+    methods:    [GET]    
+send_email:
+    path: /send-email
+    controller: App\Controller\MailerController::sendEmail
+    methods:    [GET]

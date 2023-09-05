@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome to Micropost!{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="bg-light">
+        {{ include('base-navbar.html.twig') }} 
+        <main role="main" class="container">
+            <div class="my-3 p-3 bg-white rounded box-shadow">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+    </body>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+        {% if is_granted("ROLE_USER") %}
+            <script>
+                function fetchNotificationCount() {
+                    fetch(
+                        '{{ path("notification_unread") }}',
+                        {'credentials': 'include'}
+                    ).then(function(res) {
+                        //console.log(res);
+                        res.json().then(function(val) {
+                            document.getElementById("notification-count").innerText = val.count;
+                            setTimeout(fetchNotificationCount, 5000);
+                        });
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
+                }
+                fetchNotificationCount();
+            </script>
+        {% endif %}
+    {% endblock %}
+    </html>   
+</html>

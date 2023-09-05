@@ -1,0 +1,20 @@
+{
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors-node_modules_bootstrap_scss_bootstrap_scss.css": "/build/vendors-node_modules_bootstrap_scss_bootstrap_scss.css",
+  "build/images/user-avatar.png": "/build/images/user-avatar.png",
+  "build/images/thumb-up-blue.svg": "/build/images/thumb-up-blue.svg",
+  "build/images/thumb-up-red.svg": "/build/images/thumb-up-red.svg",
+  "build/images/thumb-up-white.svg": "/build/images/thumb-up-white.svg",
+  "build/images/thumb-down-blue.svg": "/build/images/thumb-down-blue.svg",
+  "build/images/thumb-down-red.svg": "/build/images/thumb-down-red.svg",
+  "build/images/thumb-down-white.svg": "/build/images/thumb-down-white.svg",
+  "build/images/follow-user-blue.svg": "/build/images/follow-user-blue.svg",
+  "build/images/follow-user-red.svg": "/build/images/follow-user-red.svg",
+  "build/images/follow-user-white.svg": "/build/images/follow-user-white.svg",
+  "build/images/unfollow-user-white.svg": "/build/images/unfollow-user-white.svg",
+  "build/images/unfollow-user-blue.svg": "/build/images/unfollow-user-blue.svg",
+  "build/images/unfollow-user-red.svg": "/build/images/unfollow-user-red.svg",
+  "build/images/add-friend.png": "/build/images/add-friend.png"
+}

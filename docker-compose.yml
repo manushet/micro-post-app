@@ -7,12 +7,17 @@ services:
     phpmyadmin:
         image: phpmyadmin
         ports:
-            - "8101:80"
+            - "8080:80"
         tty: true   
         environment:  
+            - PMA_ARBITRARY=1
             - PMA_HOST=mysql
+            - PMA_USER=root
+            - PMA_PASSWORD=${MYSQL_ROOT_PASSWORD}
         networks:
-            - micropost-network     
+            - micropost-network   
+        volumes:
+            - .:/app             
         restart: always                
         depends_on:
             - mysql     
@@ -24,7 +29,7 @@ services:
                 - MYSQL_DATABASE=${MYSQL_DATABASE}
                 - MYSQL_USER=${MYSQL_USER}
                 - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-                - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}         
+                - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         tty: true
         cap_add:
             - SYS_NICE
@@ -39,21 +44,21 @@ services:
             - "3306:3306" 
         networks:
             - micropost-network     
-        restart: unless-stopped                                  
+        restart: unless-stopped                              
     php:
         build:
-            context: ./docker/php
-            dockerfile: Dockerfile
+            context: ./
+            dockerfile: ./docker/php/Dockerfile
+        tty: true
         volumes:
             - .:/app
         working_dir: /app
         environment:
-            - PHP_IDE_CONFIG=serverName=readit.loc
-            - POSTGRES_PASSWORD=password
-            - POSTGRES_USER=admin
-            - POSTGRES_DB=readit_db   
-            - REDIS_HOST="redis"
-            - REDIS_PORT="6379"
+            - PHP_IDE_CONFIG=serverName=micropost.loc
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+            - MYSQL_ROOT_PASSWORD=12345   
             - XDEBUG_MODES=develop,debug
             - REMOTE_HOST=host.docker.internal
             - REMOTE_PORT=9003
@@ -61,10 +66,10 @@ services:
         extra_hosts:
             - host.docker.internal:host-gateway
         networks:
-            - micropost-network         
+            - micropost-network   
+        restart: always      
         depends_on:
-            - postgres  
-            - redis  
+            - mysql  
     server:
         build:
             context: ./docker/nginx
@@ -79,3 +84,5 @@ services:
             - host.docker.internal:host-gateway    
         depends_on:
             - php
+volumes:
+   mysql_data:

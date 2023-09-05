@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if usersToFollow|length > 0%}
+        <p>
+            You do not follow anyone currently. You might find these users interesting:
+        </p>
+        {% for user in usersToFollow %}
+            <a href="{{ path('follow', {'id': user.id}) }}">
+                @{{ user.username }}
+            </a>
+        {% endfor %}
+    {% else %}
+        <div class="d-flex w-100 justify-content-between align-items-center border-bottom border-gray mb-0 pt-2 pb-3">
+            <h6 class="m-0 p-0">{{ 'post.recent'|trans }}</h6>         
+        </div>   
+        {% for post in posts %}
+            {{ include('post/singlePost.html.twig', {'post': post}) }} 
+        {% endfor %}
+    {% endif %}
+{% endblock %}

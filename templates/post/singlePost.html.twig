@@ -1,0 +1,32 @@
+<div class="d-flex justify-content-between align-items-top border-bottom border-gray mb-0 mt-3">
+    <div class="media text-muted">
+        <div>
+            <img src="{{ asset('build/images/user-avatar.png') }}" alt="" class="mr-2 rounded">
+        </div>
+            <p class="media-body small lh-125">
+                <span class="d-block">
+                    <a href="{{ path('user_posts', {'username': post.user.username}) }}">
+                        <strong class="text-gray-dark">@{{ post.user.username }}</strong> 
+                    </a>
+                    <a href="{{ path('post', {'id': post.id}) }}">
+                        <small>{{ post.createdAt|date("d.m.Y H:i") }}</small>
+                    </a>
+                </span>
+                {{ post. text }}
+            </p>     
+    </div>
+    <div class="d-flex post-actions">
+        {% if is_granted('edit', post) %}
+            <a href="{{ path('edit_post', {'id': post.id}) }}">
+                <small class="d-block text-right">Edit</small> 
+            </a>
+        {% endif %}
+        {% if is_granted('delete', post) %}
+            <a href="{{ path('remove_post', {'id': post.id}) }}">
+                <small class="d-block text-right text-red">
+                    Delete
+                </small>    
+            </a>    
+        {% endif %}
+    </div>
+</div>      

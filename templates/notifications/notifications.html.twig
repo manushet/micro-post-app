@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card">
+        {% if notifications|length %}
+            <div class="card-body">
+                <h5>New notifications</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <a class="btn btn-light" href="{{ path('notification_mark_all') }}">
+                        Mark all as read
+                    </a>
+                </li>
+                {% for notification in notifications %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between">
+                            {% if notification.likedBy is defined %}
+                                <div>
+                                    <a href="{{ path('user_posts', {'username': notification.likedBy.username}) }}">
+                                        {{ notification.likedBy.username }}
+                                    </a>
+                                    likes your 
+                                    <a href="{{ path('post', {'id': notification.post.id}) }}">
+                                        post
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <a class="btn btn-sm btn-primary float-right" href="{{ path('notification_mark', {'id': notification.id}) }}">
+                                Ok
+                            </a>                            
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+        <div class="card-body">
+            <h5>{{ 'notifications.none'|trans }}</h5>
+        </div>            
+        {% endif %}
+    </div>
+{% endblock %}

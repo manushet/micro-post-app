@@ -1,0 +1,6 @@
+<h3>Thank you for joining us!</h3>
+
+<p>Hello, {{ user.username }}! You've been successfully registered into our app.</p>
+<p>Please, confirm your email address by clicking <a href="{{ url('confirm', {'token': user.confirmationToken}) }}">on this link</a>.</p>
+<p>To log in go to <a href="{{ url('login') }}">login page</a></p>.
+<p>Thank you!</p>

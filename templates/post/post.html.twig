@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('post/singlePost.html.twig', {'post': post}) }}
+   
+    {% set displayLikeBtn = "flex" %}
+    {% set displayUnlikeBtn = "none" %}
+
+    {% if app.user and post.hasLikedBy(app.user) %}
+
+        {% set displayLikeBtn = "none" %}
+        {% set displayUnlikeBtn = "flex" %}
+
+    {% endif %}
+    
+    <div class="pt-2">
+        <button 
+            style="display: {{ displayLikeBtn }}" 
+            class="btn btn-outline-primary btn-sm like-btn" 
+            id="like-btn">
+            <span class="post-like"></span>
+            Like <span class="badge badge-light" id="like">{{ post.getLikedBy.count }}</span>
+        </button>
+
+        <button 
+            style="display: {{ displayUnlikeBtn }}" 
+            class="btn btn-outline-danger btn-sm like-btn" 
+            id="unlike-btn">
+            <span class="post-unlike"></span>
+            Unlike <span class="badge badge-light" id="unlike">{{ post.getLikedBy.count }}</span>
+        </button>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>      
+        var likeBtn = document.getElementById("like-btn");
+        var unlikeBtn = document.getElementById("unlike-btn");
+        var likeCount = document.getElementById("like");
+        var unlikeCount = document.getElementById("unlike");
+        var path_like = '{{ path("like", {"id": post.id}) }}';
+        var path_unlike = '{{ path("unlike", {"id": post.id}) }}';
+
+        addOnClick(likeBtn, unlikeBtn, unlikeCount, path_like);
+        addOnClick(unlikeBtn, likeBtn, likeCount, path_unlike);
+
+        function switchButtons(btn, otherBtn) {
+            btn.style.display = 'none';
+            otherBtn.style.display = 'flex';
+            btn.disabled = false;
+        }
+
+        function addOnClick(btn, otherBtn, likeCount, path) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                {% if not app.user %}
+                    return window.location.replace('{{ path("register") }}');
+                {% endif %}
+               
+                btn.disabled = true;
+
+                fetch(path, {'credentials': 'include'}).then(function(res) {
+                    res.json().then(function(json) {
+                        likeCount.innerText = json.count;
+                        switchButtons(btn, otherBtn);
+                    });
+                }) 
+                .catch(function(error) {
+                    console.log(error);
+                    switchButtons(btn, otherBtn);
+                });
+            });
+        }
+    </script>
+{% endblock %}

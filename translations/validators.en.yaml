@@ -1,0 +1,3 @@
+register:
+    emailused: This e-mail is already used
+    usernameused: This username is already used

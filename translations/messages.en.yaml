@@ -1,0 +1,21 @@
+menu:
+    signin: Signs in
+    signout: Sign out
+    notifications: Notifications
+    add_post: Add new post
+post:
+    recent: Recent updates
+register:
+    terms: I agree to the terms of service
+    username: Username
+    password: Password
+    repeated_password: Repated password
+    full_name: Full name
+    register_btn: Register
+notifications: 
+    none: You have not notifications
+email: 
+    registration: <h3>Thank you for joining us!</h3><p>Hello, %name%! You`ve been successfully registered into our app.</p><p>Please, confirm your email address by clicking <a href="%confirm-link%">on this link</a>.</p><p>To log in go to <a href="%login-link%">login page</a>.</p><p>Thank you and have a nice day!</p>
+user:
+    followers: "%count% Followers"
+    following: "%count% Followings"

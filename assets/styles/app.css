@@ -1,0 +1,116 @@
+a {
+    text-decoration: none;
+}
+
+.box-shadow {
+    box-shadow: 5px 5px 8px 1px rgba(0, 0, 0, .25);
+}
+.container {
+    width: 590px;
+}
+
+.media {
+    display: flex;
+}
+
+.media > div {
+    margin-right:.50em;
+}
+
+.media > div img {
+    width: 35px;
+    height: auto;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-red {
+    color: red;
+}
+
+.post-actions > a:not(:last-child) {
+    margin-right: 1em;
+}
+
+.follow-btn,
+.like-btn {
+    display: flex;
+    align-items: center;
+}
+
+.follow-btn .user-plus, 
+.follow-btn .user-minus,
+.like-btn .post-like,
+.like-btn .post-unlike {
+    width: 20px;
+    height: 20px;
+    display: block;
+    margin-right: 0.2em;
+}
+
+.follow-btn .user-plus {
+    background-image: url('../images/follow-user-blue.svg');
+}
+
+.follow-btn:hover .user-plus {
+    background-image: url('../images/follow-user-white.svg');
+}
+
+.follow-btn .user-minus {
+    background-image: url('../images/unfollow-user-red.svg');
+}
+
+.follow-btn:hover .user-minus {
+    background-image: url('../images/unfollow-user-white.svg');
+}
+
+.like-btn .post-like {
+    background-image: url('../images/thumb-up-blue.svg');
+}
+
+.like-btn:hover .post-like {
+    background-image: url('../images/thumb-up-white.svg');
+}
+
+.like-btn .post-unlike {
+    background-image: url('../images/thumb-down-red.svg');
+}
+
+.like-btn:hover .post-unlike {
+    background-image: url('../images/thumb-down-white.svg');
+}
+
+#like-btn .badge,
+#unlike-btn .badge {
+    top: 0px;
+}
+
+#like-btn .badge {
+    color: #0d6efd;
+}
+
+
+#unlike-btn .badge {
+    color: #dc3545;
+}
+
+#like-btn:hover .badge,
+#unlike-btn:hover .badge  {
+    color: #fff;
+}
+
+#notification-count {
+    color: #000;
+}
+
+

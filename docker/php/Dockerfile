@@ -29,7 +29,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install and configure php extensions
 RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl \
-    && docker-php-ext-install pdo pdo_pgsql pgsql bcmath gd zip \
+    && docker-php-ext-install pdo pdo_pgsql pgsql bcmath gd zip mysqli pdo_mysql \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && pecl install redis \
@@ -54,7 +54,6 @@ ENV CLIENT_HOST=$REMOTE_HOST
 ENV CLIENT_PORT=$REMOTE_PORT
 ENV IDEKEY=$IDE_KEY
  
-# Setup git
 RUN git config --global alias.st status
  
 # Setup php configs
@@ -62,6 +61,6 @@ RUN git config --global alias.st status
 # COPY conf.d/*.ini /usr/local/etc/php/conf.d/
 # COPY conf.d/dev/* /usr/local/etc/php/conf.d/
 
-COPY conf.d/*.ini /usr/local/etc/php/conf.d/
+COPY ./docker/php/conf.d/*.ini /usr/local/etc/php/conf.d/
 
 ENTRYPOINT ["php-fpm"]

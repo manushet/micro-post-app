@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="card-group py-2">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">
+                    {{ user.fullName }}
+                    <small class="text-muted">· @{{ user.username }}</small>
+                </h5>
+
+                {% if is_granted('ROLE_USER') and user != app.user %}
+                    {% if app.user.hasFollowing(user) %}
+                        <a href="{{ path('unfollow', {'id': user.id}) }}" class="btn btn-outline-danger follow-btn">
+                            <span class="user-minus"></span> Unfollow
+                        </a>     
+                    {% else %}
+                        <a href="{{ path('follow', {'id': user.id}) }}" class="btn btn-outline-primary follow-btn">
+                            <span class="user-plus"></span> Follow                          
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="card-group py-2">
+        <div class="card">
+            <div class="card-body">
+                <h5>{{ 'user.followers'|trans({'%count%': user.followers|length}, 'messages') }}</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for follower in user.followers %}
+                    <li class="list-group-item">
+                        <a href="{{ path('user_posts',
+                            {'username': follower.username}) }}">
+                            @{{ follower.username }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5>Following</h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                {% for following in user.following %}
+                    <li class="list-group-item">
+                        <a href="{{ path('user_posts',
+                            {'username': following.username}) }}">
+                            @{{ following.username }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="d-flex w-100 justify-content-between align-items-center border-bottom border-gray mb-0 pt-2 pb-3">
+        <h6 class="m-0 p-0">My Posts</h6>         
+    </div>   
+    {% for post in posts %}
+        {{ include('post/singlePost.html.twig', {'post': post}) }} 
+    {% endfor %}
+{% endblock %}
